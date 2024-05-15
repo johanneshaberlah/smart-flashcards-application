@@ -114,7 +114,6 @@ const getCardStyle = (index: number) => {
   position: absolute;
   width: 100%;
   height: 100%;
-  background-color: #947f7f;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.5s, box-shadow 1.0s;
