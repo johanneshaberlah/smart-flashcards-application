@@ -26,6 +26,12 @@ const router = createRouter({
             name: 'Dashboard',
             component: () => import('@/views/Dashboard.vue')
         },
+        {
+            path: '/stack/:stackName',
+            name: 'Stack',
+            component: () => import('@/views/Stack.vue'),
+            props: true
+        },
     ]
 })
 
