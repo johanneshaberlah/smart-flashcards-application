@@ -34,6 +34,9 @@
 </template>
 
 <script setup lang="ts">
+//TODO add stack karte
+//TODO edit stack page
+//stapel erstellen mit upload
 import { ref, computed, onMounted } from 'vue';
 import axios from 'axios';
 

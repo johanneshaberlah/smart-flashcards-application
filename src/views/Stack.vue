@@ -1,17 +1,17 @@
 <template>
-  <div class="stack-container">
+  <div class="stack-container pt-20 mx-auto">
     <div v-if="cards.length === 0" class="text-center py-16">Keine Karten verfügbar</div>
-    <div v-else class="stack">
+    <div v-else class="stack relative w-full h-64 mb-5 p-2.5">
       <transition-group name="stack" tag="div">
         <div
             v-for="(card, index) in visibleCards"
             :key="card.front"
-            class="card"
+            class="card absolute w-full h-full rounded-lg shadow-lg"
             :style="getCardStyle(index)"
         >
-          <div class="card-inner" @click="flipCard(card)">
-            <div class="card-face card-front" v-if="!card.flipped">{{ card.front }}</div>
-            <div class="card-face card-back" v-else>{{ card.back }}</div>
+          <div class="card-inner flex items-center justify-center w-full h-full cursor-pointer relative transition-transform duration-600" @click="flipCard(card)">
+            <div class="card-face card-front flex items-center justify-center w-full h-full absolute text-2xl p-5 bg-gray-300" v-if="!card.flipped">{{ card.front }}</div>
+            <div class="card-face card-back flex items-center justify-center w-full h-full absolute text-2xl p-5 bg-gray-800 text-white" v-else>{{ card.back }}</div>
           </div>
         </div>
       </transition-group>
@@ -30,6 +30,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
+import axios from "axios";
 
 // Define the Card type
 interface Card {
@@ -53,7 +54,7 @@ onMounted(async () => {
   if (route.params.stackName === 'test') {
     // Placeholder data for testing
     cards.value = [
-      { front: 'Lorem ipsum dolor sit amet', back: 'Consectetur adipiscing elit', flipped: true },
+      { front: 'Lorem ipsum dolor sit amet', back: 'Consectetur adipiscing elit', flipped: false },
       { front: 'Sed do eiusmod tempor', back: 'Incididunt ut labore et dolore', flipped: false },
       { front: 'Magna aliqua', back: 'Ut enim ad minim veniam', flipped: false },
       { front: 'Quis nostrud exercitation', back: 'Ullamco laboris nisi ut aliquip', flipped: false },
@@ -74,7 +75,20 @@ const nextCard = () => {
   if (currentCardIndex.value < cards.value.length) {
     currentCardIndex.value++;
   }
+
 };
+
+/*const nextCard = async () => {
+  if (currentCardIndex.value < cards.value.length) {
+    currentCardIndex.value++;
+    try {
+      const response = await axios.get(`/api/cards/${cards.value[currentCardIndex.value].id}`);
+      cards.value[currentCardIndex.value] = response.data;
+    } catch (error) {
+      console.error('Error fetching next card:', error);
+    }
+  }
+};*/
 
 const prevCard = () => {
   if (currentCardIndex.value > 0) {
@@ -88,7 +102,7 @@ const resetStack = () => {
 
 const getCardStyle = (index: number) => {
   return {
-    transform: `translateY(-${index * 10}px) rotate(${index * 2.2}deg)`,
+    transform: `translateY(-${index * 10}px) rotate(${index * 2}deg)`,
     zIndex: 3 - index
   };
 };
@@ -96,74 +110,21 @@ const getCardStyle = (index: number) => {
 
 <style scoped>
 .stack-container {
-  padding-top: 5rem;
   max-width: 400px;
-  margin: 20px auto;
   perspective: 1000px;
 }
 
-.stack {
-  position: relative;
-  width: 100%;
-  height: 250px;
-  margin-bottom: 20px;
-  padding: 10px;
-}
-
 .card {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.5s, box-shadow 1.0s;
 }
 
 .card-inner {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  position: relative;
   transform-style: preserve-3d;
-  transition: transform 0.6s;
 }
 
 .card-face {
-  position: absolute;
-  width: 100%;
-  height: 100%;
   backface-visibility: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
   border-radius: 10px;
-  padding: 20px;
   box-sizing: border-box;
-}
-
-.card-front {
-  background-color: #d2d2d2;
-}
-
-.card-back {
-  background-color: #3d3d3d;
-  color: #ffffff;
-}
-
-.card.flipped .card-inner {
-  transform: rotateY(180deg);
-}
-
-.stack-enter-active, .stack-leave-active {
-  transition: all 0.5s;
-}
-
-.stack-enter, .stack-leave-to {
-  opacity: 0;
-  transform: translateY(100%);
 }
 </style>

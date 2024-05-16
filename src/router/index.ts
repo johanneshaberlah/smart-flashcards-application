@@ -1,5 +1,6 @@
 import {createRouter, createWebHistory} from 'vue-router'
 import LoginRegister from "@/views/LoginRegister.vue";
+import EditStack from "@/views/EditStack.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -28,9 +29,15 @@ const router = createRouter({
         },
         {
             path: '/stack/:stackName',
-            name: 'Stack',
+            name: ':stackName',
             component: () => import('@/views/Stack.vue'),
             props: true
+        },
+        {
+            path: '/stack/:stackName/edit',
+            name: ':stackName bearbeiten',
+            component: EditStack,
+            props: true,
         },
     ]
 })
