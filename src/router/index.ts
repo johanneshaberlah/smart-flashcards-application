@@ -8,36 +8,51 @@ const router = createRouter({
         {
             path: '/',
             name: 'home',
-            component: () => import('@/views/LandingPage.vue')
+            component: () => import('@/views/LandingPage.vue'),
         },
         {
             path: '/login',
             name: 'Einloggen',
             component: LoginRegister,
-            props: {action: 'login'}
+            props: {action: 'login'},
+            meta: {
+                title: 'Login - Smart Flashcards'
+            }
         },
         {
             path: '/register',
             name: 'Registrieren',
             component: LoginRegister,
-            props: {action: 'register'}
+            props: {action: 'register'},
+            meta: {
+                title: 'Registrieren - Smart Flashcards'
+            }
         },
         {
             path: '/dashboard',
             name: 'Dashboard',
-            component: () => import('@/views/Dashboard.vue')
+            component: () => import('@/views/Dashboard.vue'),
+            meta: {
+                title: 'Dashboard - Smart Flashcards'
+            }
         },
         {
             path: '/stack/:stackName',
             name: ':stackName',
             component: () => import('@/views/Stack.vue'),
-            props: true
+            props: true,
+            meta: {
+                title: 'Stapel - Smart Flashcards'
+            }
         },
         {
             path: '/stack/:stackName/edit',
             name: ':stackName bearbeiten',
             component: EditStack,
             props: true,
+            meta: {
+                title: 'Stapel bearbeiten - Smart Flashcards'
+            }
         },
     ]
 })
