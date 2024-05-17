@@ -68,7 +68,7 @@ const handleSubmit = async (e: Event) => {
         password: password.value
       });
 
-      Cookies.set('jwt', response.data.jwt, { expires: 7 });
+      Cookies.set('jwt', response.data.token, { expires: 7 });
       await router.push('/'); // redirect after success
     } else { // Login
       const response = await axios.post('http://localhost:3001/login', {
@@ -76,7 +76,7 @@ const handleSubmit = async (e: Event) => {
         password: password.value
       });
 
-      Cookies.set('jwt', response.data.jwt, { expires: 7 });
+      Cookies.set('jwt', response.data.token, { expires: 7 });
       await router.push('/'); // redirect after success
     }
   } catch (error) {

@@ -31,6 +31,7 @@
 import { ref, computed, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import axios from "axios";
+import Cookies from "js-cookie";
 
 // Define the Card type
 interface Card {
@@ -51,6 +52,10 @@ const visibleCards = computed(() => {
 });
 
 onMounted(async () => {
+  //
+  const jwtToken = Cookies.get('jwt');
+  console.log('JWT Token:', jwtToken);
+  //
   if (route.params.stackName === 'test') {
     // Placeholder data for testing
     cards.value = [
