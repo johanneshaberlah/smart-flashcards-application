@@ -42,7 +42,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import axios from 'axios';
+import axiosInstance from "@/router/axiosInstance";
 
 // Define the Card type
 interface Card {
@@ -62,7 +62,7 @@ const loading = ref(true);
 // Fetch stack data on mount
 onMounted(async () => {
   try {
-    const response = await axios.get(`/api/stacks/${route.params.stackName}`);
+    const response = await axiosInstance.get(`/api/stacks/${route.params.stackName}`);
     cards.value = response.data;
   } catch (error) {
     console.error('Error fetching data:', error);
@@ -81,7 +81,7 @@ const autoResize = (event: Event) => {
 // Update card on blur
 const updateCard = async (card: Card) => {
   try {
-    await axios.put(`/api/cards/${card.uuid}`, {
+    await axiosInstance.put(`/api/cards/${card.uuid}`, {
       front: card.front,
       back: card.back
     });
@@ -93,7 +93,7 @@ const updateCard = async (card: Card) => {
 // Add a new card
 const addCard = async () => {
   try {
-    const response = await axios.post(`/api/cards`, {
+    const response = await axiosInstance.post(`/api/cards`, {
       stackName: route.params.stackName,
       front: '',
       back: ''
@@ -107,7 +107,7 @@ const addCard = async () => {
 // Delete a card
 const deleteCard = async (uuid: string) => {
   try {
-    await axios.delete(`/api/cards/${uuid}`);
+    await axiosInstance.delete(`/api/cards/${uuid}`);
     cards.value = cards.value.filter(card => card.uuid !== uuid);
   } catch (error) {
     console.error('Error deleting card:', error);

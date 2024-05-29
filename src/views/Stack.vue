@@ -52,10 +52,6 @@ const visibleCards = computed(() => {
 });
 
 onMounted(async () => {
-  //
-  const jwtToken = Cookies.get('jwt');
-  console.log('JWT Token:', jwtToken);
-  //
   if (route.params.stackName === 'test') {
     // Placeholder data for testing
     cards.value = [

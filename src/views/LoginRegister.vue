@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useRoute, useRouter } from 'vue-router';
 import { defineProps } from 'vue';
 import Cookies from 'js-cookie';
+import axiosInstance from "@/router/axiosInstance";
 
 const props = defineProps({
   action: String
@@ -62,22 +63,21 @@ const handleSubmit = async (e: Event) => {
 
   try {
     if (props.action === 'register') {
-      const response = await axios.post('http://localhost:3001/signup', {
+      const response = await axiosInstance.post('/signup', {
         name: name.value,
         mail: email.value,
         password: password.value
       });
 
-      Cookies.set('jwt', response.data.token, { expires: 7 });
-      await router.push('/'); // redirect after success
-    } else { // Login
-      const response = await axios.post('http://localhost:3001/login', {
+      Cookies.set('auth', response.data.token, { expires: 7 });
+      await router.push('/');
+    } else {
+      const response = await axiosInstance.post('/login', {
         mail: email.value,
         password: password.value
       });
-
-      Cookies.set('jwt', response.data.token, { expires: 7 });
-      await router.push('/'); // redirect after success
+      Cookies.set('auth', response.data.token, { expires: 7 });
+      await router.push('/');
     }
   } catch (error) {
     errors.api = 'Login fehlgeschlagen. Überprüfe deine Eingaben.';

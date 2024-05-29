@@ -39,6 +39,8 @@
 //stapel erstellen mit upload
 import { ref, computed, onMounted } from 'vue';
 import axios from 'axios';
+import Cookies from "js-cookie";
+import axiosInstance from "@/router/axiosInstance";
 
 const items = ref<string[]>([]);
 const loading = ref<boolean>(true);
@@ -69,8 +71,7 @@ const prevPage = () => {
 
 onMounted(async () => {
   try {
-    const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
-    // Assuming the API returns an array of objects with a 'title' field
+    const response = await axiosInstance.get('/posts');
     items.value = response.data.map((post: { title: string }) => post.title);
   } catch (error) {
     console.error('Error fetching data:', error);

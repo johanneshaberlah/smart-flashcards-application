@@ -45,7 +45,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
 
 const scrollToFeatures = () => {
   const featuresSection = document.getElementById('features');
