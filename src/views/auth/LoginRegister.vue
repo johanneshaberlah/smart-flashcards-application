@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue';
-import axios from 'axios';
 import { useRoute, useRouter } from 'vue-router';
 import { defineProps } from 'vue';
 import Cookies from 'js-cookie';
@@ -70,14 +69,14 @@ const handleSubmit = async (e: Event) => {
       });
 
       Cookies.set('auth', response.data.token, { expires: 7 });
-      await router.push('/');
+      await router.push('/dashboard');
     } else {
       const response = await axiosInstance.post('/login', {
         mail: email.value,
         password: password.value
       });
       Cookies.set('auth', response.data.token, { expires: 7 });
-      await router.push('/');
+      await router.push('/dashboard');
     }
   } catch (error) {
     errors.api = 'Login fehlgeschlagen. Überprüfe deine Eingaben.';
@@ -92,7 +91,7 @@ const handleSubmit = async (e: Event) => {
 <template>
   <div class="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
     <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-      <img class="mx-auto h-20 w-auto" src="../assets/icons/brain.svg" alt="Smart Flashcards logo"/>
+      <img class="mx-auto h-20 w-auto" src="../../assets/icons/brain.svg" alt="Smart Flashcards logo"/>
       <h2 class="mt-5 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
         {{ props.action === 'login' ? 'Anmelden' : 'Registrieren' }}
       </h2>
@@ -104,7 +103,7 @@ const handleSubmit = async (e: Event) => {
           <label for="name" class="block text-sm font-medium leading-6 text-gray-900">Name</label>
           <div class="mt-2">
             <input id="name" name="name" type="text" v-model="name" :class="{'border-red-500': errors.name && showErrors}" required
-                   class="block px-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                   class="block px-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-emerald-600 sm:text-sm sm:leading-6"/>
             <p v-if="errors.name && showErrors" class="text-red-500 text-sm">{{ errors.name }}</p>
           </div>
         </div>
@@ -113,7 +112,7 @@ const handleSubmit = async (e: Event) => {
           <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email-Adresse</label>
           <div class="mt-2">
             <input id="email" name="email" type="email" v-model="email" :class="{'border-red-500': errors.email && showErrors}" required
-                   class="block px-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                   class="block px-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-emerald-600 sm:text-sm sm:leading-6"/>
             <p v-if="errors.email && showErrors" class="text-red-500 text-sm">{{ errors.email }}</p>
           </div>
         </div>
@@ -122,14 +121,14 @@ const handleSubmit = async (e: Event) => {
           <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Passwort</label>
           <div class="mt-2">
             <input id="password" name="password" type="password" v-model="password" :class="{'border-red-500': errors.password && showErrors}" required
-                   class="block px-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                   class="block px-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-emerald-600 sm:text-sm sm:leading-6"/>
             <p v-if="errors.password && showErrors" class="text-red-500 text-sm">{{ errors.password }}</p>
           </div>
         </div>
 
         <div>
           <button type="submit"
-                  class="mt-4 flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                  class="mt-4 flex w-full justify-center rounded-md bg-emerald-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-emerald-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600">
             {{ props.action === 'login' ? 'Anmelden' : 'Registrieren' }}
           </button>
         </div>
@@ -137,7 +136,7 @@ const handleSubmit = async (e: Event) => {
 
       <p class="mt-10 text-center text-sm text-gray-500">
         {{ props.action === 'login' ? 'Du hast noch keinen Account?' : 'Du hast bereits einen Account?' }}
-        <router-link :to="props.action === 'login' ? '/register' : '/login'" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+        <router-link :to="props.action === 'login' ? '/register' : '/login'" class="font-semibold leading-6 text-emerald-600 hover:text-emerald-500">
           {{ props.action === 'login' ? 'Account erstellen' : 'Anmelden' }}
         </router-link>
       </p>
@@ -159,16 +158,3 @@ const handleSubmit = async (e: Event) => {
     </div>
   </div>
 </template>
-
-<style scoped>
-.border-red-500 {
-  border-color: #f56565 !important;
-}
-
-.fade-enter-active, .fade-leave-active {
-  transition: opacity 0.5s;
-}
-.fade-enter-from, .fade-leave-to {
-  opacity: 0;
-}
-</style>

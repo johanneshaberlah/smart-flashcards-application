@@ -1,6 +1,9 @@
 import {createRouter, createWebHistory} from 'vue-router'
-import LoginRegister from "@/views/LoginRegister.vue";
-import EditStack from "@/views/EditStack.vue";
+import LoginRegister from "@/views/auth/LoginRegister.vue";
+import Stack from "@/views/stack/Stack.vue";
+import CreateStack from "@/views/stack/CreateStack.vue";
+import CreateOrUpdateCard from "@/views/stack/CreateOrUpdateCard.vue";
+import Learning from "@/views/stack/Learning.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -12,11 +15,11 @@ const router = createRouter({
         },
         {
             path: '/login',
-            name: 'Einloggen',
+            name: 'Anmelden',
             component: LoginRegister,
             props: {action: 'login'},
             meta: {
-                title: 'Login - Smart Flashcards'
+                title: 'Anmelden - Smart Flashcards'
             }
         },
         {
@@ -37,21 +40,48 @@ const router = createRouter({
             }
         },
         {
-            path: '/stack/:stackName',
-            name: ':stackName',
-            component: () => import('@/views/Stack.vue'),
+            path: '/stack/:stackId',
+            name: ':stackId',
+            component: () => import('@/views/stack/Stack.vue'),
             props: true,
             meta: {
                 title: 'Stapel - Smart Flashcards'
             }
         },
         {
-            path: '/stack/:stackName/edit',
-            name: ':stackName bearbeiten',
-            component: EditStack,
+            path: '/stack/create',
+            name: 'Stapel erstellen',
+            component: CreateStack,
             props: true,
             meta: {
-                title: 'Stapel bearbeiten - Smart Flashcards'
+                title: 'Stapel erstellen - Smart Flashcards'
+            }
+        },
+        {
+            path: '/stack/:stackId/card/create',
+            name: 'Karte erstellen',
+            component: CreateOrUpdateCard,
+            props: true,
+            meta: {
+                title: 'Karte erstellen - Smart Flashcards'
+            }
+        },
+        {
+            path: '/stack/:stackId/learn',
+            name: 'Stapel lernen',
+            component: Learning,
+            props: true,
+            meta: {
+                title: 'Stapel lernen - Smart Flashcards'
+            }
+        },
+        {
+            path: '/stack/:stackId/card/:cardId',
+            name: 'Karte bearbeiten',
+            component: CreateOrUpdateCard,
+            props: true,
+            meta: {
+                title: 'Karte bearbeiten - Smart Flashcards'
             }
         },
     ]

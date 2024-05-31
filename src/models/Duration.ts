@@ -1,0 +1,3 @@
+interface Duration {
+    displayName: string
+}
