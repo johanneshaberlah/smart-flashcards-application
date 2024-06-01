@@ -43,12 +43,6 @@
             <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">Deine
               Stapel</h2>
           </div>
-          <div class="mt-4 flex flex-shrink-0 md:ml-4 md:mt-0">
-            <button type="button"
-                    class="lg:ml-3 inline-flex items-center rounded-md bg-emerald-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-emerald-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600">
-              Stapel erstellen
-            </button>
-          </div>
         </div>
       </div>
 
@@ -105,10 +99,12 @@
                     </div>
                   </div>
 
+
+
                 </div>
               </div>
               <div class="flex items-center justify-end gap-x-6 lg:border-t lg:border-gray-900/10 px-4 py-4 sm:px-8">
-                <button type="button" class="text-sm font-semibold leading-6 text-gray-900">Zurück</button>
+                <button @click="router.push({ path: '/dashboard'})" type="button" class="text-sm font-semibold leading-6 text-gray-900">Zurück</button>
                 <button type="submit"
                         class="rounded-md bg-emerald-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-emerald-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600">
                   Speichern

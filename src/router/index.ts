@@ -49,6 +49,15 @@ const router = createRouter({
             }
         },
         {
+            path: '/stack/:stackId/magic',
+            name: 'Stapel-Magie',
+            component: () => import('@/views/stack/StackMagic.vue'),
+            props: true,
+            meta: {
+                title: 'Magie - Smart Flashcards'
+            }
+        },
+        {
             path: '/stack/create',
             name: 'Stapel erstellen',
             component: CreateStack,
