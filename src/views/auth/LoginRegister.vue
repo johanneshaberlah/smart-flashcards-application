@@ -81,7 +81,11 @@ const handleSubmit = async (e: Event) => {
       await router.push('/dashboard');
     }
   } catch (error) {
-    errors.api = 'Login fehlgeschlagen. Überprüfe deine Eingaben.';
+    if (props.action === 'register') {
+      errors.api = 'Registrierung fehlgeschlagen. Es existiert bereits ein Account mit dieser Mail.';
+    } else {
+      errors.api = 'Login fehlgeschlagen. Überprüfe deine Eingaben.';
+    }
     setTimeout(() => {
       errors.api = '';
     }, 3000);
@@ -107,7 +111,7 @@ const handleSubmit = async (e: Event) => {
         <div v-if="props.action === 'register'">
           <label for="name" class="block text-sm font-medium leading-6 text-gray-900">Name</label>
           <div class="mt-2">
-            <input id="name" name="name" type="text" v-model="name" :class="{'border-red-500': errors.name && showErrors}" required
+            <input id="name" name="name" minlength="2" type="text" v-model="name" :class="{'border-red-500': errors.name && showErrors}" required
                    class="block px-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-emerald-600 sm:text-sm sm:leading-6"/>
             <p v-if="errors.name && showErrors" class="text-red-500 text-sm">{{ errors.name }}</p>
           </div>
@@ -125,7 +129,7 @@ const handleSubmit = async (e: Event) => {
         <div>
           <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Passwort</label>
           <div class="mt-2">
-            <input id="password" name="password" type="password" v-model="password" :class="{'border-red-500': errors.password && showErrors}" required
+            <input id="password" minlength="8" name="password" type="password" v-model="password" :class="{'border-red-500': errors.password && showErrors}" required
                    class="block px-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-emerald-600 sm:text-sm sm:leading-6"/>
             <p v-if="errors.password && showErrors" class="text-red-500 text-sm">{{ errors.password }}</p>
           </div>
