@@ -94,6 +94,7 @@
                         <span class="flex select-none items-center text-gray-500 sm:text-sm"></span>
                         <input type="color" name="color" id="color"
                                v-model="formData.color"
+                               value="#000000"
                                class="p-1 h-10 w-14 block bg-white border border-gray-200 cursor-pointer rounded-lg disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700"
                                placeholder="">
                       </div>
