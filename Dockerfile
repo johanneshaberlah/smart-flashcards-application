@@ -8,7 +8,6 @@ RUN npm install
 
 COPY . .
 
-# Ensure the build uses the correct configuration for Tailwind CSS
 RUN npm run build
 
 # Stage 2: Serve the built application with nginx
