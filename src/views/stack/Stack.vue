@@ -69,8 +69,8 @@
               <tbody class="divide-y divide-gray-200">
               <tr v-for="card in stack?.cards">
                 <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">{{ card.uniqueId.slice(0, 6).toUpperCase() }}</td>
-                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ card.question.slice(0, 32) }}</td>
-                <td class="hidden sm:table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ card.answer.slice(0, 32) }}</td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ card.question.slice(0, 32) + card.question.length > 6 ? '...' : ''}}</td>
+                <td class="hidden sm:table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ card.answer.slice(0, 32) + card.answer.length > 6 ? '...' : ''}}</td>
                 <td class="hidden sm:table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ card.maturity == null ? '-' : new Date(card.maturity.maturity).toLocaleString() + ' Uhr'}} </td>
                 <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
                   <a @click="visitCardModification(card)" class="text-emerald-600 hover:text-emerald-900">Bearbeiten<span class="sr-only">, Lindsay Walton</span></a>
