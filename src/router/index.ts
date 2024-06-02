@@ -12,6 +12,9 @@ const router = createRouter({
             path: '/',
             name: 'home',
             component: () => import('@/views/LandingPage.vue'),
+            meta: {
+                title: 'Smart Flashcards'
+            }
         },
         {
             path: '/login',

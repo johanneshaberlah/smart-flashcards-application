@@ -21,7 +21,7 @@
                 <div class="mt-3 text-center sm:mt-5">
                   <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Die Karten werden importiert...</h3>
                   <div class="mt-2">
-                    <p class="text-sm text-gray-500">Mithilfe von künstlicher Intelligenz werden nun Karten basierend auf dem Folienskript erstellt. Dies kann einige Minuten dauern.</p>
+                    <p class="text-sm text-gray-500">Mithilfe von künstlicher Intelligenz werden nun Karten basierend auf dem Dokument erstellt. Dies kann einige Minuten dauern.</p>
                   </div>
                 </div>
               </div>
@@ -78,7 +78,7 @@
           <div class="grid grid-cols-1 gap-x-8 gap-y-8 md:grid-cols-3">
             <div class="lg:px-4 sm:px-0">
               <h2 class="text-base font-semibold leading-7 text-gray-900">Automatisch Karten erstellen.</h2>
-              <p class="mt-1 text-sm leading-6 text-gray-600">Lade hier deinen Foliensatz hoch. Eine künstliche Intelligenz wird basierend auf diesem Karteikarten für dich erstellen.</p>
+              <p class="mt-1 text-sm leading-6 text-gray-600">Lade hier deine Datei hoch. Eine künstliche Intelligenz wird basierend auf diesem Karteikarten für dich erstellen.</p>
             </div>
 
             <form @submit.prevent="handleFormSubmit"
@@ -94,7 +94,7 @@
                     <h3 class="text-sm font-medium text-red-800">Beim magischen Erstellen der Karten ist ein Fehler aufgetreten.</h3>
                     <div class="mt-2 text-sm text-red-700">
                       <ul role="list" class="list-disc space-y-1 pl-5">
-                        <li>Wähle ein anderes Folienskript, passe deine Anweisungen an oder versuche es später erneut.</li>
+                        <li>Wähle eine andere Datei, passe deine Anweisungen an oder versuche es später erneut.</li>
                       </ul>
                     </div>
                   </div>
@@ -121,14 +121,14 @@
               <div class="px-4 py-6 sm:p-8">
                 <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                   <div class="col-span-full">
-                    <label for="custom-instructions" class="block text-sm font-medium leading-6 text-gray-900">Eigene Anweisungen *</label>
+                    <label for="custom-instructions" class="block text-sm font-medium leading-6 text-gray-900">Eigene Anweisungen (optional)</label>
                     <div class="mt-2">
                       <textarea id="custom-instructions" placeholder="Formuliere alle Karteikarten in Stichpunkten." name="custom-instructions" rows="3" class="block w-full pl-4 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-emerald-600 sm:text-sm sm:leading-6"></textarea>
                     </div>
                   </div>
 
                   <div class="col-span-full">
-                    <label for="cover-photo" class="block text-sm font-medium leading-6 text-gray-900">Folienskript</label>
+                    <label for="cover-photo" class="block text-sm font-medium leading-6 text-gray-900">Datei *</label>
                     <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
                       <div class="text-center">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="mx-auto h-12 w-12 text-gray-300">
@@ -137,7 +137,7 @@
                         <div id="upload-instructions">
                           <div class="mt-4 flex text-sm leading-6 text-gray-600">
                             <label for="file-upload" class="relative cursor-pointer rounded-md bg-white font-semibold text-emerald-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-emerald-600 focus-within:ring-offset-2 hover:text-emerald-500">
-                              <span>Klicke hier, um dein Folienskript hochzuladen</span>
+                              <span>Klicke hier, um deine Datei hochzuladen</span>
                               <input @change="handleFileUpload" id="file-upload" accept="application/pdf" name="file-upload" type="file" class="sr-only">
                             </label>
                           </div>
@@ -146,7 +146,7 @@
                         <p id="file-name" class="mt-3 text-xs font-semibold leading-5 text-gray-600"></p>
                       </div>
                     </div>
-                    <p class="mt-3 text-sm leading-6 text-gray-600">Lade ein Folienskript hoch und lasse von einer künstlichen Intelligenz automatisch Karteikarten erstellen.</p>
+                    <p class="mt-3 text-sm leading-6 text-gray-600">Lade eine Datei hoch und lasse von einer künstlichen Intelligenz automatisch Karteikarten erstellen.</p>
                   </div>
 
 
