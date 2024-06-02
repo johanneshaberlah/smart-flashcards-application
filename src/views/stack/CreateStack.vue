@@ -1,5 +1,6 @@
 <template>
   <div class="container mx-auto max-w-screen-2xl p-4 mt-16">
+    <Header />
     <div v-if="loading" class="text-center">Deine Stapel werden geladen...</div>
 
     <div v-else>
@@ -124,6 +125,7 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import axiosInstance from '@/router/axiosInstance.js';
 import { StackContext } from '@/models/StackContext';
+import Header from "@/views/Header.vue";
 
 const formData = ref(new StackContext('', ''));
 const router = useRouter();

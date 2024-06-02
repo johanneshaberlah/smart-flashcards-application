@@ -1,5 +1,7 @@
 <template>
   <div class="container mx-auto max-w-screen-2xl p-4 mt-16">
+    <Header />
+
     <div v-if="loading" class="text-center">Deine Stapel werden geladen...</div>
 
     <div v-else>
@@ -118,7 +120,7 @@
                 </div>
               </div>
               <div class="flex items-center justify-end gap-x-6 lg:border-t lg:border-gray-900/10 px-4 py-4 sm:px-8">
-                <button @click="router.push({ path: '/dashboard'})" type="button" class="text-sm font-semibold leading-6 text-gray-900">Zurück</button>
+                <button @click="router().push({ path: '/dashboard'})" type="button" class="text-sm font-semibold leading-6 text-gray-900">Zurück</button>
                 <button type="submit"
                         @click="submitFile"
                         class="rounded-md bg-emerald-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-emerald-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600">
@@ -138,8 +140,16 @@
 import { ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import axiosInstance from "@/router/axiosInstance.ts";
+import Header from "@/views/Header.vue";
+import router from "@/router/";
 
 export default {
+  methods: {
+    router() {
+      return router
+    }
+  },
+  components: {Header},
   setup() {
 
     const file = ref(null);

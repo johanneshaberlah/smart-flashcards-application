@@ -20,4 +20,6 @@ axiosInstance.interceptors.request.use(
     }
 );
 
+export const username = Cookies.get('name');
+
 export default axiosInstance;

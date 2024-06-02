@@ -1,5 +1,7 @@
 <template>
   <div class="container mx-auto max-w-screen-2xl p-4 mt-16">
+    <Header />
+
     <div>
       <div id="completed-modal" class="hidden relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
         <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
@@ -135,6 +137,7 @@ import {ref, onMounted, Ref} from 'vue';
 import {useRoute, useRouter} from 'vue-router';
 import axiosInstance from "@/router/axiosInstance";
 import {CardRating} from "@/models/CardRating";
+import Header from "@/views/Header.vue";
 
 // Get route and router instances
 const route = useRoute();

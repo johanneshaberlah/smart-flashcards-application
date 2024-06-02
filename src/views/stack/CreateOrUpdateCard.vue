@@ -1,5 +1,6 @@
 <template>
   <div class="container mx-auto max-w-screen-2xl p-4 mt-16">
+    <Header />
     <div>
       <div>
         <nav @click="visitStack" class="sm:hidden" aria-label="Zurück">
@@ -131,6 +132,7 @@ import {onMounted, ref} from 'vue';
 import {useRoute, useRouter} from 'vue-router';
 import axiosInstance from '@/router/axiosInstance.js';
 import {CardContext} from "@/models/CardContext";
+import Header from "@/views/Header.vue";
 
 const formData = ref(new CardContext('', ''));
 const existingCard = ref<Card>()
