@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto max-w-screen-2xl p-4 mt-16">
+  <div class="container mx-auto max-w-screen-2xl p-4 mt-2 lg:mt-8">
     <Header />
     <div v-if="loading" class="text-center">Deine Stapel werden geladen...</div>
 
