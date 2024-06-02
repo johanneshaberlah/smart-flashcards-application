@@ -27,8 +27,8 @@
 </template>
 
 <script>
-import {username} from "../router/axiosInstance.ts";
 import router from "@/router";
+import Cookies from "js-cookie";
 
 export default {
   name: 'Header',
@@ -39,7 +39,7 @@ export default {
   },
   computed: {
     username() {
-      return username
+      return Cookies.get("name");
     }
   }
 }
