@@ -83,6 +83,41 @@
 
             <form @submit.prevent="handleFormSubmit"
                   class="bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl md:col-span-2">
+              <div id="error-container" class="hidden rounded-md bg-red-50 p-4">
+                <div class="flex">
+                  <div class="flex-shrink-0">
+                    <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z" clip-rule="evenodd" />
+                    </svg>
+                  </div>
+                  <div class="ml-3">
+                    <h3 class="text-sm font-medium text-red-800">Beim magischen Erstellen der Karten ist ein Fehler aufgetreten.</h3>
+                    <div class="mt-2 text-sm text-red-700">
+                      <ul role="list" class="list-disc space-y-1 pl-5">
+                        <li>Wähle ein anderes Folienskript, passe deine Anweisungen an oder versuche es später erneut.</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="error-container-file" class="hidden rounded-md bg-red-50 p-4">
+                <div class="flex">
+                  <div class="flex-shrink-0">
+                    <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z" clip-rule="evenodd" />
+                    </svg>
+                  </div>
+                  <div class="ml-3">
+                    <h3 class="text-sm font-medium text-red-800">Beim magischen Erstellen der Karten ist ein Fehler aufgetreten.</h3>
+                    <div class="mt-2 text-sm text-red-700">
+                      <ul role="list" class="list-disc space-y-1 pl-5">
+                        <li>Bitte wähle eine Datei aus, bevor du fortfährst.</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <div class="px-4 py-6 sm:p-8">
                 <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                   <div class="col-span-full">
@@ -102,12 +137,11 @@
                         <div id="upload-instructions">
                           <div class="mt-4 flex text-sm leading-6 text-gray-600">
                             <label for="file-upload" class="relative cursor-pointer rounded-md bg-white font-semibold text-emerald-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-emerald-600 focus-within:ring-offset-2 hover:text-emerald-500">
-                              <span>Lade eine Datei hoch</span>
-                              <input @change="handleFileUpload" id="file-upload" name="file-upload" type="file" class="sr-only">
+                              <span>Klicke hier, um dein Folienskript hochzuladen</span>
+                              <input @change="handleFileUpload" id="file-upload" accept="application/pdf" name="file-upload" type="file" class="sr-only">
                             </label>
-                            <p class="pl-1">oder plaziere sie mit Drag-And-Drop.</p>
                           </div>
-                          <p class="text-xs leading-5 text-gray-600">PNG, JPG, PDF 10MB</p>
+                          <p class="text-xs leading-5 text-gray-600">Es werden ausschließlich PDF Dateien bis 10MB angenommen.</p>
                         </div>
                         <p id="file-name" class="mt-3 text-xs font-semibold leading-5 text-gray-600"></p>
                       </div>
@@ -160,12 +194,23 @@ export default {
       file.value = event.target.files[0];
       document.getElementById("upload-instructions").classList.add("hidden");
       document.getElementById("file-name").innerText = event.target.files[0].name;
+      if (!document.getElementById("error-container-file").classList.contains("hidden")) {
+        document.getElementById("error-container-file").classList.add("hidden");
+      }
     };
 
     const submitFile = async () => {
       if (!file.value) {
-        alert("Bitte wähle erst eine Datei aus.");
+        if (document.getElementById("error-container-file").classList.contains("hidden")) {
+          document.getElementById("error-container-file").classList.remove("hidden");
+        }
         return;
+      }
+      if (!document.getElementById("error-container").classList.contains("hidden")) {
+        document.getElementById("error-container").classList.add("hidden");
+      }
+      if (!document.getElementById("error-container-file").classList.contains("hidden")) {
+        document.getElementById("error-container-file").classList.add("hidden");
       }
 
       const formData = new FormData();
@@ -182,13 +227,12 @@ export default {
 
         if (response.status === 200) {
           router.push({ path: `/stack/${route.params.stackId}` });
-        } else {
-          alert("Es ist ein Fehler aufgetreten.");
-          console.error("Upload failed: ", response.statusText);
         }
       } catch (error) {
-        alert("An error occurred while uploading the file.");
-        console.error("Error: ", error);
+        document.getElementById("loading-modal").classList.add("hidden");
+        if (document.getElementById("error-container").classList.contains("hidden")) {
+          document.getElementById("error-container").classList.remove("hidden");
+        }
       }
     };
 

@@ -72,6 +72,24 @@
 
             <form @submit.prevent="handleFormSubmit"
                   class="bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl md:col-span-2">
+              <div id="error-container" class="hidden rounded-md bg-red-50 p-4">
+                <div class="flex">
+                  <div class="flex-shrink-0">
+                    <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z" clip-rule="evenodd" />
+                    </svg>
+                  </div>
+                  <div class="ml-3">
+                    <h3 class="text-sm font-medium text-red-800">Beim Erstellen des Stapels ist ein Fehler aufgetreten.</h3>
+                    <div class="mt-2 text-sm text-red-700">
+                      <ul role="list" class="list-disc space-y-1 pl-5">
+                        <li>Bitte wähle einen Namen und eine Farbe für deinen Stapel.</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <div class="px-4 py-6 sm:p-8">
                 <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                   <div class="sm:col-span-4">
@@ -96,7 +114,7 @@
                                v-model="formData.color"
                                value="#000000"
                                class="p-1 h-10 w-14 block bg-white border border-gray-200 cursor-pointer rounded-lg disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700"
-                               placeholder="">
+                               placeholder="#000000">
                       </div>
                     </div>
                   </div>
@@ -132,13 +150,16 @@ const formData = ref(new StackContext('', ''));
 const router = useRouter();
 
 const handleFormSubmit = async () => {
-  console.log("Submitting form...");
-
+  if (!document.getElementById("error-container").classList.contains("hidden")) {
+    document.getElementById("error-container").classList.add("hidden");
+  }
   try {
     await axiosInstance.post('/stack', formData.value);
     await router.push({path: '/dashboard'});
   } catch (err) {
-    alert('There was an error submitting the form. Please try again.');
+    if (document.getElementById("error-container").classList.contains("hidden")) {
+      document.getElementById("error-container").classList.remove("hidden");
+    }
   }
 };
 </script>

@@ -52,6 +52,7 @@
           <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">Karte erstellen</h2>
         </div>
         <div v-if="existingCard" @click="visitCardCreation" class="mt-4 flex flex-shrink-0 md:ml-4 md:mt-0">
+          <button @click="deleteCard" type="button" class="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">Löschen</button>
           <button type="button"
                   class="lg:ml-3 inline-flex items-center rounded-md bg-emerald-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-emerald-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600">
             Neue Karte erstellen
@@ -72,9 +73,27 @@
 
           <form @submit.prevent="handleFormSubmit"
                 class="bg-white shadow-sm sm:rounded-xl md:col-span-2">
-            <div class="px-4 py-6 sm:p-8">
 
+            <div class="px-4 py-6 sm:p-8">
               <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                <div id="error-container" class="hidden col-span-full rounded-xl bg-red-50 p-4">
+                  <div class="flex">
+                    <div class="flex-shrink-0">
+                      <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z" clip-rule="evenodd" />
+                      </svg>
+                    </div>
+                    <div class="ml-3">
+                      <h3 class="text-sm font-medium text-red-800">Beim Erstellen der Karte ist ein Fehler aufgetreten.</h3>
+                      <div class="mt-2 text-sm text-red-700">
+                        <ul role="list" class="list-disc space-y-1 pl-5">
+                          <li>Bitte fülle die Vorder- und Rückseite deiner Karte korrekt aus.</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
                 <div id="success-box" class="hidden col-span-full rounded-xl bg-green-50 p-4">
                   <div class="flex">
                     <div class="flex-shrink-0">
@@ -95,6 +114,7 @@
                     </div>
                   </div>
                 </div>
+
 
                 <div class="col-span-full">
                   <label for="question" class="block text-sm font-medium leading-6 text-gray-900">Vorderseite *</label>
@@ -161,7 +181,20 @@ const visitCardCreation = () => {
   formData.value = new CardContext('', '');
 }
 
+const deleteCard = async () => {
+  try {
+    const response = await axiosInstance.delete(`/stack/${route.params.stackId}/card/${route.params.cardId}`);
+    await router.push({ path: `/stack/${route.params.stackId}` });
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+}
+
+
 const handleFormSubmit = async () => {
+  if (!document.getElementById("error-container").classList.contains("hidden")) {
+    document.getElementById("error-container").classList.add("hidden");
+  }
   if (!document.getElementById("success-box").classList.contains("hidden")) {
     document.getElementById("success-box").classList.add("hidden");
   }
@@ -182,7 +215,9 @@ const handleFormSubmit = async () => {
       document.getElementById("success-box").classList.remove("hidden");
     }
   } catch (err) {
-    alert('There was an error submitting the form. Please try again.');
+    if (document.getElementById("error-container").classList.contains("hidden")) {
+      document.getElementById("error-container").classList.remove("hidden");
+    }
   }
 };
 </script>
