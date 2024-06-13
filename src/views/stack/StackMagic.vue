@@ -15,7 +15,7 @@
                   <img class="h-12 w-12" src="@/assets/loading.gif" alt="Loading">
                 </div>
                 <div class="mt-3 text-center sm:mt-5">
-                  <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Die Karten werden importiert...</h3>
+                  <h3 id="progressText" class="text-base font-semibold leading-6 text-gray-900">Die Karten werden importiert...</h3>
                   <div class="mt-2">
                     <p class="text-sm text-gray-500">Mithilfe von künstlicher Intelligenz werden nun Karten basierend auf dem Dokument erstellt. Dies kann einige Minuten dauern.</p>
                   </div>
@@ -209,19 +209,52 @@ export default {
       const formData = new FormData();
       formData.append("file", file.value);
       formData.append("custom-instructions", document.getElementById("custom-instructions").value);
-
+      let running = true
       try {
+        document.getElementById("progressText").innerText = "Deine Datei wird überprüft..."
+        setTimeout(function () {
+          if (running) {
+            document.getElementById("progressText").innerText = "Deine Datei hochgeladen..."
+          }
+        }, 3000);
+        setTimeout(function () {
+          if (running) {
+            document.getElementById("progressText").innerText = "Deine Datei wird dem Sprachmodell bereitgestellt..."
+          }
+        }, 7000);
+        setTimeout(function () {
+          if (running) {
+            document.getElementById("progressText").innerText = "Karteikarten werden generiert..."
+          }
+        }, 15000);
+        setTimeout(function () {
+          if (running) {
+            document.getElementById("progressText").innerText = "Einen Moment noch, die Karteikarten werden noch generiert..."
+          }
+        }, 25000);
+        setTimeout(function () {
+          if (running) {
+            document.getElementById("progressText").innerText = "Die Karteikarten werden mit deinem Stapel verknüpft..."
+          }
+        }, 35000);
+        setTimeout(function () {
+          if (running) {
+
+        }
+          document.getElementById("progressText").innerText = "Dein Stapel wird aktualisiert..."
+        }, 50000);
         document.getElementById("loading-modal").classList.remove("hidden");
         const response = await axiosInstance.post(`/stack/${route.params.stackId}/createFromFile`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
         });
-
+        running = false
         if (response.status === 200) {
           router.push({ path: `/stack/${route.params.stackId}` });
         }
       } catch (error) {
+        running = false
         document.getElementById("loading-modal").classList.add("hidden");
         if (document.getElementById("error-container").classList.contains("hidden")) {
           document.getElementById("error-container").classList.remove("hidden");
