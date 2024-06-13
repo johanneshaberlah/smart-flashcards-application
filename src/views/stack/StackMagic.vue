@@ -11,12 +11,8 @@
           <div class="flex min-h-full items-center justify-center p-4 text-center sm:p-0">
             <div class="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
               <div>
-                <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
-
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" />
-                  </svg>
-
+                <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full">
+                  <img class="h-12 w-12" src="@/assets/loading.gif" alt="Loading">
                 </div>
                 <div class="mt-3 text-center sm:mt-5">
                   <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Die Karten werden importiert...</h3>
@@ -148,9 +144,6 @@
                     </div>
                     <p class="mt-3 text-sm leading-6 text-gray-600">Lade eine Datei hoch und lasse von einer künstlichen Intelligenz automatisch Karteikarten erstellen.</p>
                   </div>
-
-
-
                 </div>
               </div>
               <div class="flex items-center justify-end gap-x-6 lg:border-t lg:border-gray-900/10 px-4 py-4 sm:px-8">
