@@ -64,7 +64,7 @@
         </div>
         <div class="mt-2 md:flex md:items-center md:justify-between">
           <div class="min-w-0 flex-1">
-            <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">✨ Magie ✨</h2>
+            <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">Automatisch erstellen</h2>
           </div>
         </div>
       </div>
@@ -214,29 +214,34 @@ export default {
         document.getElementById("progressText").innerText = "Deine Datei wird überprüft..."
         setTimeout(function () {
           if (running) {
-            document.getElementById("progressText").innerText = "Deine Datei hochgeladen..."
+            document.getElementById("progressText").innerText = "Deine Datei wird hochgeladen..."
           }
-        }, 3000);
+        }, 5000);
         setTimeout(function () {
           if (running) {
             document.getElementById("progressText").innerText = "Deine Datei wird dem Sprachmodell bereitgestellt..."
           }
-        }, 7000);
+        }, 12000);
         setTimeout(function () {
           if (running) {
             document.getElementById("progressText").innerText = "Karteikarten werden generiert..."
           }
-        }, 15000);
+        }, 19000);
         setTimeout(function () {
           if (running) {
             document.getElementById("progressText").innerText = "Einen Moment noch, die Karteikarten werden noch generiert..."
           }
-        }, 25000);
+        }, 35000);
         setTimeout(function () {
           if (running) {
             document.getElementById("progressText").innerText = "Die Karteikarten werden mit deinem Stapel verknüpft..."
           }
-        }, 35000);
+        }, 45000);
+        setTimeout(function () {
+          if (running) {
+            document.getElementById("progressText").innerText = "Einen Moment noch, gleich sind wir soweit..."
+          }
+        }, 60000);
         setTimeout(function () {
           if (running) {
 

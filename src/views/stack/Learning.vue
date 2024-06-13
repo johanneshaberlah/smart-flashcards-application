@@ -104,8 +104,12 @@
     <div class="mt-16 mx-auto max-w-2xl">
       <div class="overflow-hidden bg-white sm:rounded-lg sm:shadow">
 
-        <div class="border-b border-gray-200 bg-white px-4 py-5 sm:px-6">
+        <div class="flex justify-between items-center border-b border-gray-200 bg-white px-4 py-5 sm:px-6">
           <h3 class="text-base font-semibold leading-6 text-gray-900">{{ currentCard?.question }}</h3>
+          <button v-if="currentCard?.hint" @click="showHint()" type="button"
+                  class="ml-4 inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-yellow-200">
+            Hinweis
+          </button>
         </div>
 
         <div class="relative px-4 py-5" @click="flipCard">
@@ -123,6 +127,9 @@
         <div id="difficulty-buttons" class="hidden py-8 border-t-2 flex items-center justify-center">
           <button v-for="difficulty in currentCard?.difficultyAndDurations" @click="submitCardRating(difficulty.difficulty)" :style="{ backgroundColor: difficulty.difficulty.color }" type="button" class="mr-3 inline-flex items-center rounded-md bg-green-500 px-3 py-2 text-sm font-semibold text-gray-800 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-emerald-500">
             {{ difficulty.difficulty.name }} ({{ difficulty.duration.displayName }})</button>
+        </div>
+        <div id="hint" class="hidden py-2 px-4 border-t-2 flex items-center justify-start">
+          <p id="hintText">{{ currentCard?.hint?? ''}}</p>
         </div>
       </div>
     </div>
@@ -154,6 +161,7 @@ const flipCard = () => {
     document.getElementById("card-body").classList.remove("blur-md");
     document.getElementById("flip-container").classList.add("hidden");
     document.getElementById("difficulty-buttons").classList.remove("hidden");
+    hideHint()
   } else {
     document.getElementById("card-body").classList.add("blur-md");
     document.getElementById("flip-container").classList.remove("hidden");
@@ -161,6 +169,14 @@ const flipCard = () => {
 
   }
 };
+
+const showHint = () => {
+  document.getElementById("hint").classList.remove("hidden")
+}
+
+const hideHint = () => {
+  document.getElementById("hint").classList.add("hidden")
+}
 
 const learnAhead = () => {
   document.getElementById("completed-modal").classList.add("hidden")
@@ -182,6 +198,7 @@ const submitCardRating = async (difficulty: Difficulty) => {
 
 const nextCard = async () => {
   try {
+    hideHint()
     const response = await axiosInstance.get(`/stack/${route.params.stackId}/card/next` + (learnAheadDays.value > 0 ? `?days-ahead=${learnAheadDays.value}` : ''));
     flipCard();
     currentCard.value = response.data as Card;

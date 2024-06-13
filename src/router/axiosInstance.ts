@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 
 // Create an axios instance
 const axiosInstance = axios.create({
-    baseURL: 'https://api.smart-flashcards.com', // Set your base URL here
+    baseURL: 'http://localhost:3001', // Set your base URL here
 });
 
 // Add a request interceptor
